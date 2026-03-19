@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskMate AI — Dashboard</title>
+    <meta name="description" content="TaskMate AI WhatsApp Productivity Agent Dashboard — Monitor conversations, reminders, tasks, and agent activity.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <!-- Ambient Background -->
+    <div class="ambient-bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-brand">
+            <div class="logo-icon">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect width="32" height="32" rx="8" fill="url(#logo-grad)"/>
+                    <path d="M9 16.5L13.5 21L23 11" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <defs><linearGradient id="logo-grad" x1="0" y1="0" x2="32" y2="32"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs>
+                </svg>
+            </div>
+            <div>
+                <h1 class="brand-name">TaskMate <span class="ai-badge">AI</span></h1>
+                <p class="brand-tagline">WhatsApp Productivity Agent</p>
+            </div>
+        </div>
+        <div class="header-actions">
+            <div class="status-indicator">
+                <span class="pulse-dot"></span>
+                <span>Live</span>
+            </div>
+            <button id="refreshBtn" class="btn-refresh" title="Refresh Data">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Stats Grid -->
+    <section class="stats-grid" id="statsGrid">
+        <div class="stat-card" data-stat="total_users">
+            <div class="stat-icon" style="--accent: #6366f1;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="stat-info">
+                <span class="stat-value" id="statUsers">0</span>
+                <span class="stat-label">Total Users</span>
+            </div>
+        </div>
+        <div class="stat-card" data-stat="total_messages">
+            <div class="stat-icon" style="--accent: #06b6d4;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <div class="stat-info">
+                <span class="stat-value" id="statMessages">0</span>
+                <span class="stat-label">Messages</span>
+            </div>
+        </div>
+        <div class="stat-card" data-stat="active_reminders">
+            <div class="stat-icon" style="--accent: #f59e0b;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="stat-info">
+                <span class="stat-value" id="statReminders">0</span>
+                <span class="stat-label">Active Reminders</span>
+            </div>
+        </div>
+        <div class="stat-card" data-stat="pending_tasks">
+            <div class="stat-icon" style="--accent: #10b981;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </div>
+            <div class="stat-info">
+                <span class="stat-value" id="statTasks">0</span>
+                <span class="stat-label">Pending Tasks</span>
+            </div>
+        </div>
+        <div class="stat-card" data-stat="completed_tasks">
+            <div class="stat-icon" style="--accent: #8b5cf6;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="stat-info">
+                <span class="stat-value" id="statCompleted">0</span>
+                <span class="stat-label">Completed</span>
+            </div>
+        </div>
+        <div class="stat-card" data-stat="total_agent_actions">
+            <div class="stat-icon" style="--accent: #ec4899;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </div>
+            <div class="stat-info">
+                <span class="stat-value" id="statActions">0</span>
+                <span class="stat-label">Agent Actions</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Grid -->
+    <main class="main-grid">
+
+        <!-- Admin: Users List -->
+        <section class="card" style="grid-row: span 2;">
+            <div class="card-header">
+                <h2>👥 All Users</h2>
+                <span class="badge badge-info" id="usersCount">0 users</span>
+            </div>
+            <div class="card-body scrollable" id="usersList" style="max-height: 600px;">
+                <div class="empty-state">
+                    <span class="pulse-dot"></span> Loading users...
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin: User Details Panel -->
+        <section class="card" id="userDetailsCard" style="display: none;">
+            <div class="card-header">
+                <h2>👤 User Details <span id="detailUserPhone" class="badge badge-muted"></span></h2>
+                <div class="header-actions">
+                    <span id="detailUserLastActive" style="font-size: 0.75rem; color: var(--text-muted);"></span>
+                </div>
+            </div>
+            <div class="card-body">
+                <!-- User Attributes -->
+                <div class="user-attributes-grid" id="userAttributes">
+                    <!-- populated via js -->
+                </div>
+
+                <!-- Chat History -->
+                <h3 class="section-title mt-4">💬 Conversation History</h3>
+                <div class="chat-container user-chat-box" id="detailChatContainer">
+                    <div class="chat-messages" id="detailChatMessages">
+                    </div>
+                </div>
+
+                <div class="split-grid mt-4">
+                    <!-- Tasks -->
+                    <div class="split-col">
+                        <h3 class="section-title">📋 Active Tasks</h3>
+                        <div class="scrollable small-scroll" id="detailTasksList"></div>
+                    </div>
+                    <!-- Reminders -->
+                    <div class="split-col">
+                        <h3 class="section-title">⏰ Active Reminders</h3>
+                        <div class="scrollable small-scroll" id="detailRemindersList"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instructions Panel (shows when no user selected) -->
+        <section class="card" id="instructionPanel">
+            <div class="card-body empty-state" style="padding-top: 100px;">
+                <div class="stat-icon" style="--accent: #6366f1; margin: 0 auto 20px; width: 64px; height: 64px;">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                </div>
+                <h2>TaskMate AI Admin Center</h2>
+                <p style="margin-top: 10px; color: var(--text-secondary);">Select a user from the left pane to view their chat history, pending tasks, and reminders.</p>
+            </div>
+        </section>
+
+        <!-- Agent Activity -->
+        <section class="card full-width">
+            <div class="card-header">
+                <h2>⚡ Global Agent Activity Logs</h2>
+                <span class="badge badge-purple" id="activityCount">0 actions</span>
+            </div>
+            <div class="card-body scrollable" id="activityList">
+                <div class="empty-state">
+                    <p>No agent activity recorded yet.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>TaskMate AI v1.0 — Built for the Airia AI Agent Challenge · Airia Everywhere Track</p>
+    </footer>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

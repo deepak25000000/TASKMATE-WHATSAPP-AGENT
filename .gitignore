@@ -1,0 +1,23 @@
+# Environments
+.env
+venv/
+env/
+ENV/
+
+# Database
+*.db
+*.sqlite3
+taskmate.db
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDEs
+.vscode/
+.idea/
+
+# Testing/Logs
+test_out.txt
+*.log
